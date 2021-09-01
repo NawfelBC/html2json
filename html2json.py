@@ -20,14 +20,12 @@ for file in file_list:
        
     
     # Extract names list
-
     my_file = open("name_list.txt", "r", encoding="utf-8")
     content = my_file.read()
     name_list = content.split("\n")
     my_file.close()
 
     # Extract titles list
-
     my_file = open("title_list.txt", "r", encoding="utf-8")
     content = my_file.read()
     title_list = content.split("\n")
@@ -35,20 +33,16 @@ for file in file_list:
 
 
     # Create list of html files
-
     html_list = [f for f in listdir("original_html/") if isfile(join("original_html/", f))]
     html_list.sort(key=lambda f: int(re.sub('\D', '', f)))
     
     # Find position of file in file list
-
     file_position = html_list.index(file)
 
     # Input name
-
     name = name_list[file_position]
 
     # Input title
-
     title = title_list[file_position]
 
     # Extract title for each section
@@ -56,7 +50,6 @@ for file in file_list:
     title_box_column_create = "title-box-column-create"
     for title_box_column_create in soup.find_all('div', class_= title_box_column_create):
         section_title.append(title_box_column_create.text)
-    #print(section_title)
 
 
     # Extract image name for each section
@@ -84,7 +77,6 @@ for file in file_list:
     div_list = soup.findAll("div", {"class":"imagearea-column-create"})
     for element in div_list:
         array_of_captions.append(element.find('p').text)
-    #print(array_of_captions)
     
     
     # Extract body for each section
@@ -162,7 +154,4 @@ for file in file_list:
     with open('json_files/' + file + '.json', 'wb') as json_file:
         json_file.write(json.dumps(data, ensure_ascii=False, indent=4).encode("utf8"))
 
-print("Json files successfully created in folder 'json_files' !")    
-    
-
-    
+print("Json files successfully created in folder 'json_files' !")
